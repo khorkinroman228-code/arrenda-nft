@@ -23,7 +23,6 @@ BRAND_NAME = "Arrenda NFT"
 MANAGER_USERNAME = "@godwez"
 SUPPORT_USERNAME = "@godwez"
 STATS_CONTACT = "@godwez"
-COMMISSION_PERCENT = 1.0
 ADMIN_IDS = [8861315128]
 DB_PATH = "arrenda_rent.db"
 
@@ -56,6 +55,7 @@ E_LINK = "5278305362703835500"
 class RentCreation(StatesGroup):
     entering_nft = State()
     entering_period = State()
+    choosing_payment = State()
     entering_daily_price = State()
 
 class Requisites(StatesGroup):
@@ -67,11 +67,6 @@ class Requisites(StatesGroup):
 def generate_deal_code(length=10):
     alphabet = string.ascii_letters + string.digits
     return "".join(secrets.choice(alphabet) for _ in range(length))
-
-def calc_commission(amount, percent=COMMISSION_PERCENT):
-    commission = round(amount * percent / 100, 2)
-    to_receive = round(amount - commission, 2)
-    return commission, to_receive
 
 # ============ БАЗА ДАННЫХ ============
 async def init_db():
@@ -97,9 +92,12 @@ async def init_db():
                 buyer_id INTEGER,
                 nft TEXT,
                 period TEXT,
+                payment_method TEXT,
                 daily_price REAL,
                 status TEXT DEFAULT 'pending',
-                commission REAL DEFAULT 0,
+                start_date TIMESTAMP,
+                last_paid_day INTEGER DEFAULT 0,
+                total_paid REAL DEFAULT 0,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 completed_at TIMESTAMP
             )
@@ -138,12 +136,12 @@ async def set_card(tg_id, region, number):
         )
         await db.commit()
 
-async def create_deal(code, seller_id, nft, period, daily_price, commission):
+async def create_deal(code, seller_id, nft, period, payment_method, daily_price):
     async with aiosqlite.connect(DB_PATH) as db:
         await db.execute(
-            """INSERT INTO deals (deal_code, seller_id, nft, period, daily_price, commission)
+            """INSERT INTO deals (deal_code, seller_id, nft, period, payment_method, daily_price)
                VALUES (?, ?, ?, ?, ?, ?)""",
-            (code, seller_id, nft, period, daily_price, commission),
+            (code, seller_id, nft, period, payment_method, daily_price),
         )
         await db.commit()
 
@@ -184,6 +182,46 @@ async def inc_deals(tg_id):
         )
         await db.commit()
 
+async def start_rent(code):
+    async with aiosqlite.connect(DB_PATH) as db:
+        await db.execute(
+            """UPDATE deals
+               SET status = 'active',
+                   start_date = CURRENT_TIMESTAMP,
+                   last_paid_day = 0,
+                   total_paid = 0
+               WHERE deal_code = ?""",
+            (code,),
+        )
+        await db.commit()
+
+async def get_active_rents():
+    async with aiosqlite.connect(DB_PATH) as db:
+        db.row_factory = aiosqlite.Row
+        cur = await db.execute("SELECT * FROM deals WHERE status = 'active'")
+        return await cur.fetchall()
+
+async def pay_day(code, new_day, paid_amount):
+    async with aiosqlite.connect(DB_PATH) as db:
+        await db.execute(
+            """UPDATE deals
+               SET last_paid_day = ?, total_paid = total_paid + ?
+               WHERE deal_code = ?""",
+            (new_day, paid_amount, code),
+        )
+        await db.commit()
+
+async def close_rent(code):
+    async with aiosqlite.connect(DB_PATH) as db:
+        await db.execute(
+            """UPDATE deals
+               SET status = 'completed',
+                   completed_at = CURRENT_TIMESTAMP
+               WHERE deal_code = ?""",
+            (code,),
+        )
+        await db.commit()
+
 # ============ ТЕКСТЫ ============
 TEXTS = {
     "ru": {
@@ -210,6 +248,9 @@ TEXTS = {
         "btn_item_sent": "NFT передан менеджеру",
         "btn_add_ton": "Добавить/изменить GRAM-кошелёк",
         "btn_add_card": "Добавить карту/номер телефона",
+        "btn_ton": "На GRAM-кошелёк",
+        "btn_card": "Перевод на карту/СБП",
+        "btn_stars": "Звёзды",
         "support_menu": "Для связи с поддержкой нажмите на кнопку ниже:",
         "stats": (
             "<b>Сводка по платформе</b>\n\n"
@@ -241,25 +282,30 @@ TEXTS = {
         "earn_intro": (
             "🎁 <b>Сдача NFT в аренду</b>\n\n"
             "Чтобы начать зарабатывать на своём NFT-подарке, "
-            "выполни 3 простых шага:\n\n"
+            "выполни 4 простых шага:\n\n"
             "1️⃣ Скопируй <b>ссылку на свой NFT-подарок</b> и отправь её сюда\n"
             "2️⃣ Укажи <b>срок аренды</b> (сколько дней сдаёшь)\n"
-            "3️⃣ Укажи <b>стоимость за 1 день</b> — сколько хочешь получать ежедневно\n\n"
+            "3️⃣ Выбери <b>метод получения оплаты</b>\n"
+            "4️⃣ Укажи <b>стоимость за 1 день</b> — сколько хочешь получать ежедневно\n\n"
             "После этого мы сформируем сделку и пришлём ссылку для арендатора."
         ),
         "enter_nft_link": (
-            "🔗 <b>Шаг 1 из 3</b>\n\n"
+            "🔗 <b>Шаг 1 из 4</b>\n\n"
             "Скопируйте <b>ссылку на NFT-подарок</b> и отправьте её сюда.\n\n"
             "Пример: <code>https://t.me/nft/Pepe-1234</code>"
         ),
         "enter_period": (
-            "⏳ <b>Шаг 2 из 3</b>\n\n"
+            "⏳ <b>Шаг 2 из 4</b>\n\n"
             "Укажите <b>срок аренды</b> в днях.\n\n"
             "Пример: <code>7</code> или <code>30</code>"
         ),
+        "choose_payment": (
+            "💱 <b>Шаг 3 из 4</b>\n\n"
+            "Выберите, <b>куда вы хотите получать оплату</b>:"
+        ),
         "enter_daily_price": (
-            "💰 <b>Шаг 3 из 3</b>\n\n"
-            "Укажите <b>стоимость аренды за 1 день</b>.\n\n"
+            "💰 <b>Шаг 4 из 4</b>\n\n"
+            "Укажите <b>стоимость аренды за 1 день</b> — сколько вы хотите получать ежедневно.\n\n"
             "Пример: <code>15.5</code>"
         ),
         "invalid_number": (
@@ -268,11 +314,19 @@ TEXTS = {
         "invalid_period": (
             f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> Срок должен быть целым числом больше 0"
         ),
-        "req_not_added": f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> <b>Реквизиты не добавлены</b>",
+        "req_not_added_ton": (
+            f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> <b>TON-кошелёк не добавлен</b>\n\n"
+            "Добавьте его в разделе «Реквизиты» и попробуйте снова."
+        ),
+        "req_not_added_card": (
+            f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> <b>Карта/СБП не добавлены</b>\n\n"
+            "Добавьте их в разделе «Реквизиты» и попробуйте снова."
+        ),
         "deal_created": (
             f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Сделка аренды создана!</b>\n\n"
             f"🎁 NFT: <b>{{nft}}</b>\n"
             f"⏳ Срок: <b>{{period}} дн.</b>\n"
+            f"💱 Способ оплаты: <b>{{payment_method}}</b>\n"
             f"💰 Оплата в день: <b>{{daily_price}} $</b>\n"
             f"💎 Итого за срок: <b>{{total}} $</b>\n\n"
             f"<tg-emoji emoji-id='{E_LINK}'>🔗</tg-emoji> <b>Ссылка для арендатора:</b>\n{{link}}\n\n"
@@ -311,32 +365,44 @@ TEXTS = {
             "👤 Владелец NFT: @{seller}\n"
             "🎁 NFT: {nft}\n"
             "⏳ Срок: <b>{period} дн.</b>\n"
+            "💱 Способ оплаты: <b>{payment_method}</b>\n"
             "💰 Оплата в день: <b>{daily_price} $</b>\n"
             "💎 Итого: <b>{total} $</b>\n\n"
             "Нажмите «Я оплатил» после перевода."
         ),
         "buyer_paid": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Вы подтвердили оплату. Ожидайте подтверждения от менеджера.",
-        "item_sent_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> NFT передан менеджеру. Ожидайте подтверждения.",
+        "item_sent_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> NFT передан менеджеру. Ожидайте запуска аренды.",
         "payment_confirmed_seller": (
             "🎉 <b>ПЛАТЕЖ ПОДТВЕРЖДЕН!</b>\n\n"
             f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Арендатор @{{buyer}} подтвердил оплату\n"
             "📦 Сделка: <b>#{code}</b>\n"
             "🎁 NFT: {nft}\n"
             "⏳ Срок: <b>{period} дн.</b>\n"
-            "💰 Оплата в день: <b>{daily_price} $</b>\n"
-            "💎 Итого: <b>{total} $</b>\n\n"
-            "📊 <b>Финансовые условия:</b>\n"
-            "• Комиссия системы: {percent}% ({commission} $)\n"
-            "• К зачислению: <b>{to_receive} $</b>\n\n"
+            "💱 Способ оплаты: <b>{payment_method}</b>\n"
+            "💰 Оплата в день: <b>{daily_price} $</b>\n\n"
             "⚠️ <b>ТРЕБУЕТСЯ ВАШЕ ДЕЙСТВИЕ:</b>\n"
             "1. Передайте NFT менеджеру {manager}\n"
             "2. После передачи нажмите кнопку ниже\n\n"
             "🚫 <b>Не передавайте NFT арендатору напрямую!</b>"
         ),
-        "deal_completed_seller": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>СДЕЛКА АРЕНДЫ ЗАВЕРШЕНА!</b>\n\n"
-            "Средства зачислены на ваш счёт. "
-            "Проверить можно в разделе «Профиль»"
+        "deal_started_seller": (
+            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>АРЕНДА ЗАПУЩЕНА!</b>\n\n"
+            "🎁 NFT: <b>{nft}</b>\n"
+            "💰 Начисление: <b>{daily_price} $ / день</b>\n"
+            "⏳ Срок: <b>{period} дн.</b>\n\n"
+            "Средства будут поступать на ваш баланс <b>каждый день</b>.\n"
+            "Проверить: раздел «Профиль»"
+        ),
+        "daily_payout_notify": (
+            "💰 <b>Начисление за аренду</b>\n\n"
+            "🎁 NFT: <b>{nft}</b>\n"
+            "📅 День: <b>{day} / {period}</b>\n"
+            "💎 Зачислено: <b>{amount} $</b>"
+        ),
+        "rent_finished_seller": (
+            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>АРЕНДА ЗАВЕРШЕНА</b>\n\n"
+            "🎁 NFT: <b>{nft}</b>\n"
+            "Все выплаты за срок аренды зачислены на ваш баланс."
         ),
         "seller_item_sent_notify": (
             "📦 Владелец NFT нажал на кнопку:\n"
@@ -347,7 +413,11 @@ TEXTS = {
         "no_buyer": "Нет арендатора",
         "deal_already_done": "Сделка уже обработана",
         "error": "Ошибка",
-        "admin_deal_done": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Сделка #{{code}} завершена, {{amount}} $ начислено владельцу",
+        "admin_deal_started": (
+            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Аренда #{{code}} запущена\n"
+            "• В день: {{daily}} $\n"
+            "• Срок: {{period}} дней"
+        ),
         "admin_set_deals_usage": "Использование: /set_my_deals <число>",
         "admin_set_deals_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Установлено {{n}} успешных сделок",
     },
@@ -437,6 +507,30 @@ def earn_start_kb(lang="ru"):
             text="Начать",
             callback_data="earn_start",
             icon_custom_emoji_id=E_CART,
+        )],
+        [InlineKeyboardButton(
+            text=t(lang, "btn_back_menu"),
+            callback_data="main_menu",
+            icon_custom_emoji_id=E_BACK,
+        )],
+    ])
+
+def payment_method_kb(lang="ru"):
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text=t(lang, "btn_ton"),
+            callback_data="method:TON",
+            icon_custom_emoji_id=E_DIAMOND,
+        )],
+        [InlineKeyboardButton(
+            text=t(lang, "btn_card"),
+            callback_data="method:Карта/СБП",
+            icon_custom_emoji_id=E_CARD,
+        )],
+        [InlineKeyboardButton(
+            text=t(lang, "btn_stars"),
+            callback_data="method:Звёзды",
+            icon_custom_emoji_id=E_STAR,
         )],
         [InlineKeyboardButton(
             text=t(lang, "btn_back_menu"),
@@ -636,8 +730,37 @@ async def enter_period(message: Message, state: FSMContext):
         await message.answer(t(lang, "invalid_period"), reply_markup=back_menu_kb(lang))
         return
     await state.update_data(period=period)
+    await state.set_state(RentCreation.choosing_payment)
+    await message.answer(t(lang, "choose_payment"), reply_markup=payment_method_kb(lang))
+
+@earn_router.callback_query(F.data.startswith("method:"), RentCreation.choosing_payment)
+async def choose_method(cb: CallbackQuery, state: FSMContext):
+    method = cb.data.split(":", 1)[1]
+    data = await state.get_data()
+    lang = data.get("lang", "ru")
+
+    user = await get_user(cb.from_user.id)
+    if method == "TON" and not user["ton_wallet"]:
+        await cb.answer()
+        try:
+            await cb.message.delete()
+        except Exception:
+            pass
+        await cb.message.answer(t(lang, "req_not_added_ton"), reply_markup=back_menu_kb(lang))
+        return
+    if method == "Карта/СБП" and not user["card_number"]:
+        await cb.answer()
+        try:
+            await cb.message.delete()
+        except Exception:
+            pass
+        await cb.message.answer(t(lang, "req_not_added_card"), reply_markup=back_menu_kb(lang))
+        return
+
+    await state.update_data(payment_method=method)
     await state.set_state(RentCreation.entering_daily_price)
-    await message.answer(t(lang, "enter_daily_price"), reply_markup=back_menu_kb(lang))
+    await cb.message.edit_text(t(lang, "enter_daily_price"), reply_markup=back_menu_kb(lang))
+    await cb.answer()
 
 @earn_router.message(RentCreation.entering_daily_price)
 async def enter_daily_price(message: Message, state: FSMContext, bot: Bot):
@@ -653,11 +776,11 @@ async def enter_daily_price(message: Message, state: FSMContext, bot: Bot):
 
     nft = data["nft"]
     period = data["period"]
+    payment_method = data["payment_method"]
     total = round(daily_price * period, 2)
-    commission, to_receive = calc_commission(total)
 
     code = generate_deal_code()
-    await create_deal(code, message.from_user.id, nft, period, daily_price, commission)
+    await create_deal(code, message.from_user.id, nft, period, payment_method, daily_price)
     await state.clear()
 
     bot_info = await bot.get_me()
@@ -667,6 +790,7 @@ async def enter_daily_price(message: Message, state: FSMContext, bot: Bot):
         t(lang, "deal_created").format(
             nft=nft,
             period=period,
+            payment_method=payment_method,
             daily_price=daily_price,
             total=total,
             link=link,
@@ -695,6 +819,7 @@ async def handle_buyer_entry(message: Message, code: str):
             seller=seller_username,
             nft=deal["nft"],
             period=deal["period"],
+            payment_method=deal["payment_method"],
             daily_price=deal["daily_price"],
             total=total,
         ),
@@ -718,10 +843,7 @@ async def buyer_paid(cb: CallbackQuery, bot: Bot):
     await cb.message.edit_text(t(lang, "buyer_paid"))
     await cb.answer()
 
-    total = round(deal["daily_price"] * int(deal["period"]), 2)
-    commission, to_receive = calc_commission(total)
     buyer_username = cb.from_user.username or str(cb.from_user.id)
-
     seller = await get_user(deal["seller_id"])
     seller_lang = get_lang(seller) if seller else "ru"
 
@@ -733,11 +855,8 @@ async def buyer_paid(cb: CallbackQuery, bot: Bot):
                 code=code,
                 nft=deal["nft"],
                 period=deal["period"],
+                payment_method=deal["payment_method"],
                 daily_price=deal["daily_price"],
-                total=total,
-                percent=COMMISSION_PERCENT,
-                commission=commission,
-                to_receive=to_receive,
                 manager=MANAGER_USERNAME,
             ),
             reply_markup=item_sent_kb(seller_lang),
@@ -881,22 +1000,29 @@ async def cmd_rteam(message: Message):
     if not deal["buyer_id"]:
         await message.answer(TEXTS["ru"]["no_buyer"])
         return
-    await set_deal_status(deal["deal_code"], "completed")
-    total = round(deal["daily_price"] * int(deal["period"]), 2)
-    commission, to_receive = calc_commission(total)
-    await add_balance(deal["seller_id"], to_receive)
-    await inc_deals(deal["seller_id"])
+
+    await start_rent(deal["deal_code"])
+
     seller = await get_user(deal["seller_id"])
     seller_lang = get_lang(seller) if seller else "ru"
     try:
         await message.bot.send_message(
             deal["seller_id"],
-            t(seller_lang, "deal_completed_seller"),
+            t(seller_lang, "deal_started_seller").format(
+                nft=deal["nft"],
+                daily_price=deal["daily_price"],
+                period=deal["period"],
+            ),
         )
     except Exception as e:
         logging.error(e)
+
     await message.answer(
-        t("ru", "admin_deal_done").format(code=deal["deal_code"], amount=to_receive)
+        t("ru", "admin_deal_started").format(
+            code=deal["deal_code"],
+            daily=deal["daily_price"],
+            period=deal["period"],
+        )
     )
 
 @admin_router.message(Command("set_my_deals"))
@@ -914,6 +1040,66 @@ async def cmd_set_my_deals(message: Message):
         await db.commit()
     await message.answer(t("ru", "admin_set_deals_ok").format(n=n))
 
+# ============ ФОНОВОЕ НАЧИСЛЕНИЕ ============
+async def daily_payout_loop(bot: Bot):
+    """Каждый час проверяет активные аренды и начисляет оплату за прошедшие дни."""
+    while True:
+        try:
+            rents = await get_active_rents()
+            for deal in rents:
+                async with aiosqlite.connect(DB_PATH) as db:
+                    db.row_factory = aiosqlite.Row
+                    cur = await db.execute(
+                        """SELECT
+                             CAST((julianday('now') - julianday(start_date)) AS INTEGER) AS days_passed
+                           FROM deals WHERE deal_code = ?""",
+                        (deal["deal_code"],),
+                    )
+                    row = await cur.fetchone()
+                days_passed = row["days_passed"] if row else 0
+
+                period = int(deal["period"])
+                last_paid = deal["last_paid_day"] or 0
+
+                while last_paid < days_passed and last_paid < period:
+                    last_paid += 1
+                    amount = round(deal["daily_price"], 2)
+                    await add_balance(deal["seller_id"], amount)
+                    await pay_day(deal["deal_code"], last_paid, amount)
+
+                    seller = await get_user(deal["seller_id"])
+                    seller_lang = get_lang(seller) if seller else "ru"
+                    try:
+                        await bot.send_message(
+                            deal["seller_id"],
+                            t(seller_lang, "daily_payout_notify").format(
+                                amount=amount,
+                                day=last_paid,
+                                period=period,
+                                nft=deal["nft"],
+                            ),
+                        )
+                    except Exception as e:
+                        logging.error(f"Не смог уведомить о начислении: {e}")
+
+                if last_paid >= period:
+                    await close_rent(deal["deal_code"])
+                    await inc_deals(deal["seller_id"])
+                    seller = await get_user(deal["seller_id"])
+                    seller_lang = get_lang(seller) if seller else "ru"
+                    try:
+                        await bot.send_message(
+                            deal["seller_id"],
+                            t(seller_lang, "rent_finished_seller").format(nft=deal["nft"]),
+                        )
+                    except Exception as e:
+                        logging.error(e)
+
+        except Exception as e:
+            logging.error(f"Ошибка в daily_payout_loop: {e}")
+
+        await asyncio.sleep(3600)
+
 # ============ ЗАПУСК ============
 async def main():
     await init_db()
@@ -930,6 +1116,8 @@ async def main():
     dp.include_router(balance_router)
     dp.include_router(req_router)
     dp.include_router(admin_router)
+
+    asyncio.create_task(daily_payout_loop(bot))
 
     print(f"🚀 {BRAND_NAME} bot started...")
     await dp.start_polling(bot)
