@@ -330,7 +330,7 @@ TEXTS = {
         "enter_daily_price": (
             f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> <b>Шаг 4 из 4</b>\n\n"
             "Укажите <b>стоимость аренды за 1 день</b> — сколько вы хотите получать ежедневно.\n\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Валюта: <b>{{currency}}</b>\n\n"
+            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Валюта: <b>{currency}</b>\n\n"
             "Пример: <code>15.5</code>"
         ),
         "invalid_number": (
@@ -349,24 +349,24 @@ TEXTS = {
         ),
         "deal_created": (
             f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Сделка аренды создана!</b>\n\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: <b>{{nft}}</b>\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{{period}} дн.</b>\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Способ оплаты: <b>{{payment_method}}</b>\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Оплата в день: <b>{{daily_price}} {{currency}}</b>\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> Итого за срок: <b>{{total}} {{currency}}</b>\n\n"
-            f"<tg-emoji emoji-id='{E_LINK}'>🔗</tg-emoji> <b>Ссылка для арендатора:</b>\n{{link}}\n\n"
+            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
+            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
+            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
+            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n"
+            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> Итого за срок: <b>{total} {currency}</b>\n\n"
+            f"<tg-emoji emoji-id='{E_LINK}'>🔗</tg-emoji> <b>Ссылка для арендатора:</b>\n{link}\n\n"
             "<i>Скопируйте ссылку и отправьте арендатору</i>"
         ),
         "profile": (
             f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> <b>ВАШ ПРОФИЛЬ</b>\n\n"
-            f"<tg-emoji emoji-id='{E_USER}'>👤</tg-emoji> Пользователь: @{{username}}\n\n"
+            f"<tg-emoji emoji-id='{E_USER}'>👤</tg-emoji> Пользователь: @{username}\n\n"
             "Доступные средства:\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> <b>{{balance}}</b>\n\n"
+            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> <b>{balance}</b>\n\n"
             f"<tg-emoji emoji-id='{E_BANK}'>🏦</tg-emoji> <b>ВЫВОД ОТ 3-Х СДЕЛОК</b>\n\n"
             f"<tg-emoji emoji-id='{E_BANK}'>🏦</tg-emoji> <b>Информация о выводе средств:</b>\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> TON-кошелёк: {{ton}}\n"
-            f"<tg-emoji emoji-id='{E_CARD}'>💳</tg-emoji> Карта / СБП: {{card}}\n\n"
-            f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> Успешных сделок: <b>{{deals}}</b>"
+            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> TON-кошелёк: {ton}\n"
+            f"<tg-emoji emoji-id='{E_CARD}'>💳</tg-emoji> Карта / СБП: {card}\n\n"
+            f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> Успешных сделок: <b>{deals}</b>"
         ),
         "req_menu": (
             f"<tg-emoji emoji-id='{E_MSG}'>📨</tg-emoji> <b>Управление реквизитами</b>\n\n"
@@ -399,7 +399,7 @@ TEXTS = {
         "item_sent_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> NFT передан менеджеру. Ожидайте запуска аренды.",
         "payment_confirmed_seller": (
             f"<tg-emoji emoji-id='{E_CHECK}'>🎉</tg-emoji> <b>ПЛАТЕЖ ПОДТВЕРЖДЕН!</b>\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Арендатор @{{buyer}} подтвердил оплату\n"
+            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Арендатор @{buyer} подтвердил оплату\n"
             f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> Сделка: <b>#{code}</b>\n"
             f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: {nft}\n"
             f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
@@ -439,12 +439,12 @@ TEXTS = {
         "deal_already_done": "Сделка уже обработана",
         "error": "Ошибка",
         "admin_deal_started": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Аренда #{{code}} запущена\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> В день: {{daily}} {{currency}}\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: {{period}} дней"
+            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Аренда #{code} запущена\n"
+            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> В день: {daily} {currency}\n"
+            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: {period} дней"
         ),
         "admin_set_deals_usage": "Использование: /set_my_deals <число>",
-        "admin_set_deals_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Установлено {{n}} успешных сделок",
+        "admin_set_deals_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Установлено {n} успешных сделок",
     },
 }
 
