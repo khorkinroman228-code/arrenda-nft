@@ -30,6 +30,7 @@ SUPPORT_PHOTO = "https://i.imgur.com/F6UddrX.jpeg"
 BALANCE_PHOTO = "https://i.imgur.com/kumwHxs.jpeg"
 REQUISITES_PHOTO = "https://i.imgur.com/TBrOAbO.jpeg"
 MAIN_PHOTO = "https://tetchange.com/wp-content/uploads/photo-2024-10-10-08-44-07.jpg"
+WITHDRAW_PHOTO = "https://i.imgur.com/CKccSwc.jpeg"
 
 logging.basicConfig(level=logging.INFO)
 
@@ -273,6 +274,7 @@ TEXTS = {
         "btn_ton": "На GRAM-кошелёк",
         "btn_card": "Перевод на карту/СБП",
         "btn_stars": "Звёзды",
+        "btn_withdraw": "Вывести средства",
         "support_menu": "<tg-emoji emoji-id='" + E_SOS + "'>🆘</tg-emoji> Для связи с поддержкой нажмите на кнопку ниже:",
         "stats": (
             "<tg-emoji emoji-id='" + E_INFO + "'>ℹ️</tg-emoji> <b>Сводка по платформе</b>\n\n"
@@ -357,11 +359,15 @@ TEXTS = {
             "<tg-emoji emoji-id='" + E_USER + "'>👤</tg-emoji> Пользователь: @{username}\n\n"
             "Доступные средства:\n"
             "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> <b>{balance}</b>\n\n"
-            "<tg-emoji emoji-id='" + E_BANK + "'>🏦</tg-emoji> <b>ВЫВОД ОТ 3-Х СДЕЛОК</b>\n\n"
             "<tg-emoji emoji-id='" + E_BANK + "'>🏦</tg-emoji> <b>Информация о выводе средств:</b>\n"
             "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> TON-кошелёк: {ton}\n"
             "<tg-emoji emoji-id='" + E_CARD + "'>💳</tg-emoji> Карта / СБП: {card}\n\n"
             "<tg-emoji emoji-id='" + E_BRIEFCASE + "'>💼</tg-emoji> Успешных сделок: <b>{deals}</b>"
+        ),
+        "withdraw_unavailable": (
+            "<tg-emoji emoji-id='" + E_BANK + "'>🏦</tg-emoji> <b>Вывод средств</b>\n\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> Вывод будет доступен "
+            "после окончания сдачи NFT"
         ),
         "req_menu": (
             "<tg-emoji emoji-id='" + E_MSG + "'>📨</tg-emoji> <b>Управление реквизитами</b>\n\n"
@@ -503,6 +509,20 @@ def back_menu_kb(lang="ru"):
             callback_data="main_menu",
             icon_custom_emoji_id=E_BACK,
         )]
+    ])
+
+def profile_kb(lang="ru"):
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text=t(lang, "btn_withdraw"),
+            callback_data="withdraw",
+            icon_custom_emoji_id=E_BANK,
+        )],
+        [InlineKeyboardButton(
+            text=t(lang, "btn_back_menu"),
+            callback_data="main_menu",
+            icon_custom_emoji_id=E_BACK,
+        )],
     ])
 
 def support_kb(lang="ru"):
@@ -944,6 +964,22 @@ async def show_balance(cb: CallbackQuery):
     await cb.message.answer_photo(
         photo=BALANCE_PHOTO,
         caption=msg,
+        reply_markup=profile_kb(lang),
+    )
+    await cb.answer()
+
+# ---------- Вывести средства ----------
+@balance_router.callback_query(F.data == "withdraw")
+async def withdraw_handler(cb: CallbackQuery):
+    user = await get_user(cb.from_user.id)
+    lang = get_lang(user)
+    try:
+        await cb.message.delete()
+    except Exception:
+        pass
+    await cb.message.answer_photo(
+        photo=WITHDRAW_PHOTO,
+        caption=t(lang, "withdraw_unavailable"),
         reply_markup=back_menu_kb(lang),
     )
     await cb.answer()
