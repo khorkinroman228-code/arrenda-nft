@@ -33,33 +33,31 @@ REQUISITES_PHOTO = "https://i.imgur.com/TBrOAbO.jpeg"
 logging.basicConfig(level=logging.INFO)
 
 # ============ ID ПРЕМИУМ-ЭМОДЗИ ============
-E_GIFT = "5276422526350681413"       # 🎁
-E_BRIEFCASE = "5276037216244624892"  # 💼
-E_ROCKET = "5206401524200145033"     # 🚀
-E_HOURGLASS = "5276412364458059956"  # ⏳
-E_EXCHANGE = "5276398496008663230"   # 💱
-E_MONEY = "5278227821364275264"      # 💰
-E_DIAMOND = "5278778882848220741"    # 💎
-E_BANK = "5238132025323444613"       # 🏦
-E_CHECK = "5776375003280838798"      # ✅
-E_ONE = "5244961448525848230"        # 1️⃣
-E_TWO = "5242293676834579345"        # 2️⃣
-E_THREE = "5242652525647127686"      # 3️⃣
-E_FOUR = "5242287453426969423"       # 4️⃣
-E_STAR = "5206476089127372379"       # ⭐
-E_CROWN = "5276229330131772747"      # 👑
-E_INFO = "5278753302023004775"       # ℹ️
-E_MSG = "5278589204207528856"        # 📨
-E_SHIELD = "5276262671962892944"     # 🛡️
-E_CART = "5276314275994954605"       # 🛒
-E_SOS = "5278647306525108244"        # 🆘
-E_PEOPLE = "5298668674532538341"     # 👥
-E_USER = "5275979556308674886"       # 👤
-E_BACK = "5278413853577734640"       # ◀️
-E_CARD = "5192689390136089826"       # 💳
-E_BOOK = "5206626000665868017"       # 📚
-E_GLOBE = "5239963889004732575"      # 🌐
-E_LINK = "5278305362703835500"       # 🔗
+E_GIFT = "5276422526350681413"
+E_BRIEFCASE = "5276037216244624892"
+E_ROCKET = "5206401524200145033"
+E_HOURGLASS = "5276412364458059956"
+E_EXCHANGE = "5276398496008663230"
+E_MONEY = "5278227821364275264"
+E_DIAMOND = "5278778882848220741"
+E_BANK = "5238132025323444613"
+E_CHECK = "5776375003280838798"
+E_ONE = "5244961448525848230"
+E_TWO = "5242293676834579345"
+E_THREE = "5242652525647127686"
+E_FOUR = "5242287453426969423"
+E_STAR = "5206476089127372379"
+E_CROWN = "5276229330131772747"
+E_INFO = "5278753302023004775"
+E_MSG = "5278589204207528856"
+E_SHIELD = "5276262671962892944"
+E_CART = "5276314275994954605"
+E_SOS = "5278647306525108244"
+E_USER = "5275979556308674886"
+E_BACK = "5278413853577734640"
+E_CARD = "5192689390136089826"
+E_GLOBE = "5239963889004732575"
+E_LINK = "5278305362703835500"
 
 # ============ СОСТОЯНИЯ ============
 class RentCreation(StatesGroup):
@@ -246,19 +244,19 @@ async def close_rent(code):
 # ============ ТЕКСТЫ ============
 TEXTS = {
     "ru": {
-        "choose_lang": f"<tg-emoji emoji-id='{E_GLOBE}'>🌐</tg-emoji> Выберите язык / Choose language / اختر اللغة:",
+        "choose_lang": "<tg-emoji emoji-id='" + E_GLOBE + "'>🌐</tg-emoji> Выберите язык / Choose language / اختر اللغة:",
         "welcome": (
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> "
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> "
             "<b>ПРЕВРАТИ СВОИ NFT ПОДАРКИ В РЕАЛЬНЫЙ ДОХОД!</b> "
-            f"<tg-emoji emoji-id='{E_STAR}'>⭐</tg-emoji>\n\n"
+            "<tg-emoji emoji-id='" + E_STAR + "'>⭐</tg-emoji>\n\n"
             "Каждый NFT-подарок — это не просто знак внимания, "
             "а ценный цифровой актив, который может работать на тебя.\n\n"
-            f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> <b>Как это работает:</b>\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Ты сдаёшь свой NFT-подарок в аренду\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Получаешь фиксированную оплату <b>каждый день</b>\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Срок аренды выбираешь сам\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Мы берём на себя безопасность сделки и поиск арендатора\n\n"
-            f"<tg-emoji emoji-id='{E_ROCKET}'>🚀</tg-emoji> Нажми <b>«Заработать»</b>, чтобы начать."
+            "<tg-emoji emoji-id='" + E_BRIEFCASE + "'>💼</tg-emoji> <b>Как это работает:</b>\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Ты сдаёшь свой NFT-подарок в аренду\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Получаешь фиксированную оплату <b>каждый день</b>\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Срок аренды выбираешь сам\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Мы берём на себя безопасность сделки и поиск арендатора\n\n"
+            "<tg-emoji emoji-id='" + E_ROCKET + "'>🚀</tg-emoji> Нажми <b>«Заработать»</b>, чтобы начать."
         ),
         "btn_earn": "Заработать",
         "btn_support": "Поддержка",
@@ -274,177 +272,171 @@ TEXTS = {
         "btn_ton": "На GRAM-кошелёк",
         "btn_card": "Перевод на карту/СБП",
         "btn_stars": "Звёзды",
-        "support_menu": f"<tg-emoji emoji-id='{E_SOS}'>🆘</tg-emoji> Для связи с поддержкой нажмите на кнопку ниже:",
+        "support_menu": "<tg-emoji emoji-id='" + E_SOS + "'>🆘</tg-emoji> Для связи с поддержкой нажмите на кнопку ниже:",
         "stats": (
-            f"<tg-emoji emoji-id='{E_INFO}'>ℹ️</tg-emoji> <b>Сводка по платформе</b>\n\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Оборот · $12 839\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> Сделок · 543\n"
-            f"<tg-emoji emoji-id='{E_STAR}'>⭐</tg-emoji> Рейтинг · 4.9 / 5.0\n"
-            f"<tg-emoji emoji-id='{E_USER}'>👤</tg-emoji> Онлайн · 68\n\n"
+            "<tg-emoji emoji-id='" + E_INFO + "'>ℹ️</tg-emoji> <b>Сводка по платформе</b>\n\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> Оборот · $12 839\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> Сделок · 543\n"
+            "<tg-emoji emoji-id='" + E_STAR + "'>⭐</tg-emoji> Рейтинг · 4.9 / 5.0\n"
+            "<tg-emoji emoji-id='" + E_USER + "'>👤</tg-emoji> Онлайн · 68\n\n"
             "· · ·\n\n"
-            f"<tg-emoji emoji-id='{E_SHIELD}'>🛡️</tg-emoji> <b>Стандарт безопасности</b>\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Эскроу для каждой сделки\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Анти-фрод корпоративного уровня\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Верифицированные контрагенты\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Поддержка без выходных\n\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> <i>Данные обновляются каждые 5 минут</i>"
+            "<tg-emoji emoji-id='" + E_SHIELD + "'>🛡️</tg-emoji> <b>Стандарт безопасности</b>\n\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Эскроу для каждой сделки\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Анти-фрод корпоративного уровня\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Верифицированные контрагенты\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Поддержка без выходных\n\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> <i>Данные обновляются каждые 5 минут</i>"
         ),
         "how_works": (
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> <b>Как устроен процесс аренды вашего NFT:</b>\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Создание сделки.</b>\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> <b>Как устроен процесс аренды вашего NFT:</b>\n\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Создание сделки.</b>\n"
             "Вы заходите в наш официальный бот и открываете новую сделку под запрос покупателя.\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Оплата.</b>\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Оплата.</b>\n"
             "Покупатель вносит всю необходимую сумму, и средства замораживаются в системе для вашей безопасности.\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Подтверждение.</b>\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Подтверждение.</b>\n"
             "Мы одобряем сделку с нашей стороны, подтверждая её чистоту.\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Передача NFT.</b>\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Передача NFT.</b>\n"
             "Вы передаёте свой NFT нашему гарант-менеджеру.\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Получение дохода.</b>\n"
-            f"Вы ежедневно получаете фиксированную выплату на свой счёт "
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> на протяжении всего срока аренды."
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Получение дохода.</b>\n"
+            "Вы ежедневно получаете фиксированную выплату на свой счёт "
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> на протяжении всего срока аренды."
         ),
         "earn_intro": (
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> <b>Сдача NFT в аренду</b>\n\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> <b>Сдача NFT в аренду</b>\n\n"
             "Чтобы начать зарабатывать на своём NFT-подарке, "
             "выполни 4 простых шага:\n\n"
-            f"<tg-emoji emoji-id='{E_ONE}'>1️⃣</tg-emoji> Скопируй <b>ссылку на свой NFT-подарок</b> и отправь её сюда\n"
-            f"<tg-emoji emoji-id='{E_TWO}'>2️⃣</tg-emoji> Укажи <b>срок аренды</b> (сколько дней сдаёшь)\n"
-            f"<tg-emoji emoji-id='{E_THREE}'>3️⃣</tg-emoji> Выбери <b>метод получения оплаты</b>\n"
-            f"<tg-emoji emoji-id='{E_FOUR}'>4️⃣</tg-emoji> Укажи <b>стоимость за 1 день</b> — сколько хочешь получать ежедневно\n\n"
-            f"<tg-emoji emoji-id='{E_ROCKET}'>🚀</tg-emoji> После этого мы сформируем сделку и пришлём ссылку для арендатора."
+            "<tg-emoji emoji-id='" + E_ONE + "'>1️⃣</tg-emoji> Скопируй <b>ссылку на свой NFT-подарок</b> и отправь её сюда\n"
+            "<tg-emoji emoji-id='" + E_TWO + "'>2️⃣</tg-emoji> Укажи <b>срок аренды</b> (сколько дней сдаёшь)\n"
+            "<tg-emoji emoji-id='" + E_THREE + "'>3️⃣</tg-emoji> Выбери <b>метод получения оплаты</b>\n"
+            "<tg-emoji emoji-id='" + E_FOUR + "'>4️⃣</tg-emoji> Укажи <b>стоимость за 1 день</b> — сколько хочешь получать ежедневно\n\n"
+            "<tg-emoji emoji-id='" + E_ROCKET + "'>🚀</tg-emoji> После этого мы сформируем сделку и пришлём ссылку для арендатора."
         ),
         "enter_nft_link": (
-            f"<tg-emoji emoji-id='{E_LINK}'>🔗</tg-emoji> <b>Шаг 1 из 4</b>\n\n"
+            "<tg-emoji emoji-id='" + E_LINK + "'>🔗</tg-emoji> <b>Шаг 1 из 4</b>\n\n"
             "Скопируйте <b>ссылку на NFT-подарок</b> и отправьте её сюда.\n\n"
             "Пример: <code>https://t.me/nft/Pepe-1234</code>"
         ),
         "enter_period": (
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> <b>Шаг 2 из 4</b>\n\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> <b>Шаг 2 из 4</b>\n\n"
             "Укажите <b>срок аренды</b> в днях.\n\n"
             "Пример: <code>7</code> или <code>30</code>"
         ),
         "choose_payment": (
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> <b>Шаг 3 из 4</b>\n\n"
+            "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> <b>Шаг 3 из 4</b>\n\n"
             "Выберите, <b>куда вы хотите получать оплату</b>:"
         ),
         "enter_daily_price": (
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> <b>Шаг 4 из 4</b>\n\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> <b>Шаг 4 из 4</b>\n\n"
             "Укажите <b>стоимость аренды за 1 день</b> — сколько вы хотите получать ежедневно.\n\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Валюта: <b>{currency}</b>\n\n"
+            "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> Валюта: <b>{currency}</b>\n\n"
             "Пример: <code>15.5</code>"
         ),
-        "invalid_number": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> Введите корректное число, например: <code>100.5</code>"
-        ),
-        "invalid_period": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> Срок должен быть целым числом больше 0"
-        ),
+        "invalid_number": "<tg-emoji emoji-id='" + E_CHECK + "'>❌</tg-emoji> Введите корректное число, например: <code>100.5</code>",
+        "invalid_period": "<tg-emoji emoji-id='" + E_CHECK + "'>❌</tg-emoji> Срок должен быть целым числом больше 0",
         "req_not_added_ton": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> <b>TON-кошелёк не добавлен</b>\n\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> Добавьте его в разделе «Реквизиты» и попробуйте снова."
+            "<tg-emoji emoji-id='" + E_CHECK + "'>❌</tg-emoji> <b>TON-кошелёк не добавлен</b>\n\n"
+            "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> Добавьте его в разделе «Реквизиты» и попробуйте снова."
         ),
         "req_not_added_card": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> <b>Карта/СБП не добавлены</b>\n\n"
-            f"<tg-emoji emoji-id='{E_CARD}'>💳</tg-emoji> Добавьте их в разделе «Реквизиты» и попробуйте снова."
+            "<tg-emoji emoji-id='" + E_CHECK + "'>❌</tg-emoji> <b>Карта/СБП не добавлены</b>\n\n"
+            "<tg-emoji emoji-id='" + E_CARD + "'>💳</tg-emoji> Добавьте их в разделе «Реквизиты» и попробуйте снова."
         ),
         "deal_created": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Сделка аренды создана!</b>\n\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> Итого за срок: <b>{total} {currency}</b>\n\n"
-            f"<tg-emoji emoji-id='{E_LINK}'>🔗</tg-emoji> <b>Ссылка для арендатора:</b>\n{link}\n\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Сделка аренды создана!</b>\n\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
+            "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n"
+            "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> Итого за срок: <b>{total} {currency}</b>\n\n"
+            "<tg-emoji emoji-id='" + E_LINK + "'>🔗</tg-emoji> <b>Ссылка для арендатора:</b>\n{link}\n\n"
             "<i>Скопируйте ссылку и отправьте арендатору</i>"
         ),
         "profile": (
-            f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> <b>ВАШ ПРОФИЛЬ</b>\n\n"
-            f"<tg-emoji emoji-id='{E_USER}'>👤</tg-emoji> Пользователь: @{username}\n\n"
+            "<tg-emoji emoji-id='" + E_BRIEFCASE + "'>💼</tg-emoji> <b>ВАШ ПРОФИЛЬ</b>\n\n"
+            "<tg-emoji emoji-id='" + E_USER + "'>👤</tg-emoji> Пользователь: @{username}\n\n"
             "Доступные средства:\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> <b>{balance}</b>\n\n"
-            f"<tg-emoji emoji-id='{E_BANK}'>🏦</tg-emoji> <b>ВЫВОД ОТ 3-Х СДЕЛОК</b>\n\n"
-            f"<tg-emoji emoji-id='{E_BANK}'>🏦</tg-emoji> <b>Информация о выводе средств:</b>\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> TON-кошелёк: {ton}\n"
-            f"<tg-emoji emoji-id='{E_CARD}'>💳</tg-emoji> Карта / СБП: {card}\n\n"
-            f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> Успешных сделок: <b>{deals}</b>"
+            "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> <b>{balance}</b>\n\n"
+            "<tg-emoji emoji-id='" + E_BANK + "'>🏦</tg-emoji> <b>ВЫВОД ОТ 3-Х СДЕЛОК</b>\n\n"
+            "<tg-emoji emoji-id='" + E_BANK + "'>🏦</tg-emoji> <b>Информация о выводе средств:</b>\n"
+            "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> TON-кошелёк: {ton}\n"
+            "<tg-emoji emoji-id='" + E_CARD + "'>💳</tg-emoji> Карта / СБП: {card}\n\n"
+            "<tg-emoji emoji-id='" + E_BRIEFCASE + "'>💼</tg-emoji> Успешных сделок: <b>{deals}</b>"
         ),
         "req_menu": (
-            f"<tg-emoji emoji-id='{E_MSG}'>📨</tg-emoji> <b>Управление реквизитами</b>\n\n"
-            f"<tg-emoji emoji-id='{E_INFO}'>ℹ️</tg-emoji> Используйте кнопки ниже чтобы добавить/изменить реквизиты 🔽"
+            "<tg-emoji emoji-id='" + E_MSG + "'>📨</tg-emoji> <b>Управление реквизитами</b>\n\n"
+            "<tg-emoji emoji-id='" + E_INFO + "'>ℹ️</tg-emoji> Используйте кнопки ниже чтобы добавить/изменить реквизиты 🔽"
         ),
         "enter_ton": (
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> <b>Добавьте ваш TON-кошелёк:</b>\n\n"
+            "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> <b>Добавьте ваш TON-кошелёк:</b>\n\n"
             "Пожалуйста, отправьте адрес вашего кошелька"
         ),
-        "ton_added": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Адрес успешно добавлен</b>",
-        "choose_region": (
-            f"<tg-emoji emoji-id='{E_GLOBE}'>🌍</tg-emoji> <b>Выберите регион вашей карты / телефона:</b>"
-        ),
-        "enter_card": f"<tg-emoji emoji-id='{E_CARD}'>💳</tg-emoji> Отправьте номер карты или телефона:",
-        "card_added": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>Реквизиты успешно добавлены</b>",
+        "ton_added": "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Адрес успешно добавлен</b>",
+        "choose_region": "<tg-emoji emoji-id='" + E_GLOBE + "'>🌍</tg-emoji> <b>Выберите регион вашей карты / телефона:</b>",
+        "enter_card": "<tg-emoji emoji-id='" + E_CARD + "'>💳</tg-emoji> Отправьте номер карты или телефона:",
+        "card_added": "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>Реквизиты успешно добавлены</b>",
         "not_added": "🚫 не добавлен",
         "not_added_req": "🚫 Реквизиты не добавлены",
         "empty": "0.00 (Пусто)",
         "join_deal": (
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> <b>Сделка аренды #{code}</b>\n\n"
-            f"<tg-emoji emoji-id='{E_USER}'>👤</tg-emoji> Владелец NFT: @{seller}\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: {nft}\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> Итого: <b>{total} {currency}</b>\n\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> <b>Сделка аренды #{code}</b>\n\n"
+            "<tg-emoji emoji-id='" + E_USER + "'>👤</tg-emoji> Владелец NFT: @{seller}\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> NFT: {nft}\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
+            "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n"
+            "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> Итого: <b>{total} {currency}</b>\n\n"
             "Нажмите «Я оплатил» после перевода."
         ),
-        "buyer_paid": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Вы подтвердили оплату. Ожидайте подтверждения от менеджера.",
-        "item_sent_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> NFT передан менеджеру. Ожидайте запуска аренды.",
+        "buyer_paid": "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Вы подтвердили оплату. Ожидайте подтверждения от менеджера.",
+        "item_sent_ok": "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> NFT передан менеджеру. Ожидайте запуска аренды.",
         "payment_confirmed_seller": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>🎉</tg-emoji> <b>ПЛАТЕЖ ПОДТВЕРЖДЕН!</b>\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Арендатор @{buyer} подтвердил оплату\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> Сделка: <b>#{code}</b>\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: {nft}\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
-            f"<tg-emoji emoji-id='{E_EXCHANGE}'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n\n"
-            f"<tg-emoji emoji-id='{E_INFO}'>⚠️</tg-emoji> <b>ТРЕБУЕТСЯ ВАШЕ ДЕЙСТВИЕ:</b>\n"
-            f"<tg-emoji emoji-id='{E_ONE}'>1️⃣</tg-emoji> Передайте NFT менеджеру {manager}\n"
-            f"<tg-emoji emoji-id='{E_TWO}'>2️⃣</tg-emoji> После передачи нажмите кнопку ниже\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>🚫</tg-emoji> <b>Не передавайте NFT арендатору напрямую!</b>"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>🎉</tg-emoji> <b>ПЛАТЕЖ ПОДТВЕРЖДЕН!</b>\n\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Арендатор @{buyer} подтвердил оплату\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> Сделка: <b>#{code}</b>\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> NFT: {nft}\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n"
+            "<tg-emoji emoji-id='" + E_EXCHANGE + "'>💱</tg-emoji> Способ оплаты: <b>{payment_method}</b>\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> Оплата в день: <b>{daily_price} {currency}</b>\n\n"
+            "<tg-emoji emoji-id='" + E_INFO + "'>⚠️</tg-emoji> <b>ТРЕБУЕТСЯ ВАШЕ ДЕЙСТВИЕ:</b>\n"
+            "<tg-emoji emoji-id='" + E_ONE + "'>1️⃣</tg-emoji> Передайте NFT менеджеру {manager}\n"
+            "<tg-emoji emoji-id='" + E_TWO + "'>2️⃣</tg-emoji> После передачи нажмите кнопку ниже\n\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>🚫</tg-emoji> <b>Не передавайте NFT арендатору напрямую!</b>"
         ),
         "deal_started_seller": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>АРЕНДА ЗАПУЩЕНА!</b>\n\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Начисление: <b>{daily_price} {currency} / день</b>\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n\n"
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Средства будут поступать на ваш баланс <b>каждый день</b>.\n"
-            f"<tg-emoji emoji-id='{E_BRIEFCASE}'>💼</tg-emoji> Проверить: раздел «Профиль»"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>АРЕНДА ЗАПУЩЕНА!</b>\n\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> Начисление: <b>{daily_price} {currency} / день</b>\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> Срок: <b>{period} дн.</b>\n\n"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Средства будут поступать на ваш баланс <b>каждый день</b>.\n"
+            "<tg-emoji emoji-id='" + E_BRIEFCASE + "'>💼</tg-emoji> Проверить: раздел «Профиль»"
         ),
         "daily_payout_notify": (
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> <b>Начисление за аренду</b>\n\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> День: <b>{day} / {period}</b>\n"
-            f"<tg-emoji emoji-id='{E_DIAMOND}'>💎</tg-emoji> Зачислено: <b>{amount} {currency}</b>"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> <b>Начисление за аренду</b>\n\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> День: <b>{day} / {period}</b>\n"
+            "<tg-emoji emoji-id='" + E_DIAMOND + "'>💎</tg-emoji> Зачислено: <b>{amount} {currency}</b>"
         ),
         "rent_finished_seller": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> <b>АРЕНДА ЗАВЕРШЕНА</b>\n\n"
-            f"<tg-emoji emoji-id='{E_GIFT}'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> Все выплаты за срок аренды зачислены на ваш баланс."
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> <b>АРЕНДА ЗАВЕРШЕНА</b>\n\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>🎁</tg-emoji> NFT: <b>{nft}</b>\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> Все выплаты за срок аренды зачислены на ваш баланс."
         ),
         "seller_item_sent_notify": (
-            f"<tg-emoji emoji-id='{E_GIFT}'>📦</tg-emoji> Владелец NFT нажал на кнопку:\n"
+            "<tg-emoji emoji-id='" + E_GIFT + "'>📦</tg-emoji> Владелец NFT нажал на кнопку:\n"
             "«NFT передан менеджеру»"
         ),
-        "deal_not_found": f"<tg-emoji emoji-id='{E_CHECK}'>❌</tg-emoji> Сделка не найдена.",
+        "deal_not_found": "<tg-emoji emoji-id='" + E_CHECK + "'>❌</tg-emoji> Сделка не найдена.",
         "no_active_deals": "Нет активных сделок в статусе paid",
         "no_buyer": "Нет арендатора",
         "deal_already_done": "Сделка уже обработана",
         "error": "Ошибка",
         "admin_deal_started": (
-            f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Аренда #{code} запущена\n"
-            f"<tg-emoji emoji-id='{E_MONEY}'>💰</tg-emoji> В день: {daily} {currency}\n"
-            f"<tg-emoji emoji-id='{E_HOURGLASS}'>⏳</tg-emoji> Срок: {period} дней"
+            "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Аренда #{code} запущена\n"
+            "<tg-emoji emoji-id='" + E_MONEY + "'>💰</tg-emoji> В день: {daily} {currency}\n"
+            "<tg-emoji emoji-id='" + E_HOURGLASS + "'>⏳</tg-emoji> Срок: {period} дней"
         ),
         "admin_set_deals_usage": "Использование: /set_my_deals <число>",
-        "admin_set_deals_ok": f"<tg-emoji emoji-id='{E_CHECK}'>✅</tg-emoji> Установлено {n} успешных сделок",
+        "admin_set_deals_ok": "<tg-emoji emoji-id='" + E_CHECK + "'>✅</tg-emoji> Установлено {n} успешных сделок",
     },
 }
 
@@ -516,7 +508,7 @@ def support_kb(lang="ru"):
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(
             text=t(lang, "btn_support"),
-            url=f"https://t.me/{SUPPORT_USERNAME.lstrip('@')}",
+            url="https://t.me/" + SUPPORT_USERNAME.lstrip('@'),
             icon_custom_emoji_id=E_SOS,
         )],
         [InlineKeyboardButton(
@@ -578,7 +570,7 @@ def buyer_pay_kb(code, lang="ru"):
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(
             text=t(lang, "btn_paid"),
-            callback_data=f"paid:{code}",
+            callback_data="paid:" + code,
             icon_custom_emoji_id=E_CHECK,
         )]
     ])
@@ -783,13 +775,11 @@ async def choose_method(cb: CallbackQuery, state: FSMContext):
         return
 
     currency = get_currency(method, user=user)
-
     await state.update_data(payment_method=method, currency=currency)
     await state.set_state(RentCreation.entering_daily_price)
-    await cb.message.edit_text(
-        t(lang, "enter_daily_price").format(currency=currency),
-        reply_markup=back_menu_kb(lang),
-    )
+
+    msg = t(lang, "enter_daily_price").replace("{currency}", str(currency))
+    await cb.message.edit_text(msg, reply_markup=back_menu_kb(lang))
     await cb.answer()
 
 @earn_router.message(RentCreation.entering_daily_price)
@@ -815,18 +805,19 @@ async def enter_daily_price(message: Message, state: FSMContext, bot: Bot):
     await state.clear()
 
     bot_info = await bot.get_me()
-    link = f"https://t.me/{bot_info.username}?start={code}"
+    link = "https://t.me/" + bot_info.username + "?start=" + code
+
+    msg = t(lang, "deal_created")
+    msg = msg.replace("{nft}", str(nft))
+    msg = msg.replace("{period}", str(period))
+    msg = msg.replace("{payment_method}", str(payment_method))
+    msg = msg.replace("{daily_price}", str(daily_price))
+    msg = msg.replace("{total}", str(total))
+    msg = msg.replace("{currency}", str(currency))
+    msg = msg.replace("{link}", str(link))
 
     await message.answer(
-        t(lang, "deal_created").format(
-            nft=nft,
-            period=period,
-            payment_method=payment_method,
-            daily_price=daily_price,
-            total=total,
-            currency=currency,
-            link=link,
-        ),
+        msg,
         reply_markup=back_menu_kb(lang),
         disable_web_page_preview=True,
     )
@@ -846,19 +837,17 @@ async def handle_buyer_entry(message: Message, code: str):
     total = round(deal["daily_price"] * int(deal["period"]), 2)
     currency = deal["currency"] or "$"
 
-    await message.answer(
-        t(lang, "join_deal").format(
-            code=deal["deal_code"],
-            seller=seller_username,
-            nft=deal["nft"],
-            period=deal["period"],
-            payment_method=deal["payment_method"],
-            daily_price=deal["daily_price"],
-            total=total,
-            currency=currency,
-        ),
-        reply_markup=buyer_pay_kb(code, lang),
-    )
+    msg = t(lang, "join_deal")
+    msg = msg.replace("{code}", str(deal["deal_code"]))
+    msg = msg.replace("{seller}", str(seller_username))
+    msg = msg.replace("{nft}", str(deal["nft"]))
+    msg = msg.replace("{period}", str(deal["period"]))
+    msg = msg.replace("{payment_method}", str(deal["payment_method"]))
+    msg = msg.replace("{daily_price}", str(deal["daily_price"]))
+    msg = msg.replace("{total}", str(total))
+    msg = msg.replace("{currency}", str(currency))
+
+    await message.answer(msg, reply_markup=buyer_pay_kb(code, lang))
 
 @deal_router.callback_query(F.data.startswith("paid:"))
 async def buyer_paid(cb: CallbackQuery, bot: Bot):
@@ -882,19 +871,20 @@ async def buyer_paid(cb: CallbackQuery, bot: Bot):
     seller_lang = get_lang(seller) if seller else "ru"
     currency = deal["currency"] or "$"
 
+    msg = t(seller_lang, "payment_confirmed_seller")
+    msg = msg.replace("{buyer}", str(buyer_username))
+    msg = msg.replace("{code}", str(code))
+    msg = msg.replace("{nft}", str(deal["nft"]))
+    msg = msg.replace("{period}", str(deal["period"]))
+    msg = msg.replace("{payment_method}", str(deal["payment_method"]))
+    msg = msg.replace("{daily_price}", str(deal["daily_price"]))
+    msg = msg.replace("{currency}", str(currency))
+    msg = msg.replace("{manager}", str(MANAGER_USERNAME))
+
     try:
         await bot.send_message(
             deal["seller_id"],
-            t(seller_lang, "payment_confirmed_seller").format(
-                buyer=buyer_username,
-                code=code,
-                nft=deal["nft"],
-                period=deal["period"],
-                payment_method=deal["payment_method"],
-                daily_price=deal["daily_price"],
-                currency=currency,
-                manager=MANAGER_USERNAME,
-            ),
+            msg,
             reply_markup=item_sent_kb(seller_lang),
         )
     except Exception as e:
@@ -930,20 +920,21 @@ async def show_balance(cb: CallbackQuery):
         f"{user['card_region']} · {user['card_number']}"
         if user["card_number"] else t(lang, "not_added_req")
     )
-    text = t(lang, "profile").format(
-        username=user["username"] or str(user["tg_id"]),
-        balance=balance_str,
-        ton=ton,
-        card=card,
-        deals=user["successful_deals"],
-    )
+
+    msg = t(lang, "profile")
+    msg = msg.replace("{username}", str(user["username"] or str(user["tg_id"])))
+    msg = msg.replace("{balance}", str(balance_str))
+    msg = msg.replace("{ton}", str(ton))
+    msg = msg.replace("{card}", str(card))
+    msg = msg.replace("{deals}", str(user["successful_deals"]))
+
     try:
         await cb.message.delete()
     except Exception:
         pass
     await cb.message.answer_photo(
         photo=BALANCE_PHOTO,
-        caption=text,
+        caption=msg,
         reply_markup=back_menu_kb(lang),
     )
     await cb.answer()
@@ -1042,27 +1033,25 @@ async def cmd_rteam(message: Message):
 
     seller = await get_user(deal["seller_id"])
     seller_lang = get_lang(seller) if seller else "ru"
+
+    msg = t(seller_lang, "deal_started_seller")
+    msg = msg.replace("{nft}", str(deal["nft"]))
+    msg = msg.replace("{daily_price}", str(deal["daily_price"]))
+    msg = msg.replace("{currency}", str(currency))
+    msg = msg.replace("{period}", str(deal["period"]))
+
     try:
-        await message.bot.send_message(
-            deal["seller_id"],
-            t(seller_lang, "deal_started_seller").format(
-                nft=deal["nft"],
-                daily_price=deal["daily_price"],
-                currency=currency,
-                period=deal["period"],
-            ),
-        )
+        await message.bot.send_message(deal["seller_id"], msg)
     except Exception as e:
         logging.error(e)
 
-    await message.answer(
-        t("ru", "admin_deal_started").format(
-            code=deal["deal_code"],
-            daily=deal["daily_price"],
-            currency=currency,
-            period=deal["period"],
-        )
-    )
+    msg2 = t("ru", "admin_deal_started")
+    msg2 = msg2.replace("{code}", str(deal["deal_code"]))
+    msg2 = msg2.replace("{daily}", str(deal["daily_price"]))
+    msg2 = msg2.replace("{currency}", str(currency))
+    msg2 = msg2.replace("{period}", str(deal["period"]))
+
+    await message.answer(msg2)
 
 @admin_router.message(Command("set_my_deals"))
 async def cmd_set_my_deals(message: Message):
@@ -1077,7 +1066,8 @@ async def cmd_set_my_deals(message: Message):
             (n, message.from_user.id),
         )
         await db.commit()
-    await message.answer(t("ru", "admin_set_deals_ok").format(n=n))
+    msg = t("ru", "admin_set_deals_ok").replace("{n}", str(n))
+    await message.answer(msg)
 
 # ============ ФОНОВОЕ НАЧИСЛЕНИЕ ============
 async def daily_payout_loop(bot: Bot):
@@ -1108,17 +1098,16 @@ async def daily_payout_loop(bot: Bot):
 
                     seller = await get_user(deal["seller_id"])
                     seller_lang = get_lang(seller) if seller else "ru"
+
+                    msg = t(seller_lang, "daily_payout_notify")
+                    msg = msg.replace("{nft}", str(deal["nft"]))
+                    msg = msg.replace("{day}", str(last_paid))
+                    msg = msg.replace("{period}", str(period))
+                    msg = msg.replace("{amount}", str(amount))
+                    msg = msg.replace("{currency}", str(currency))
+
                     try:
-                        await bot.send_message(
-                            deal["seller_id"],
-                            t(seller_lang, "daily_payout_notify").format(
-                                amount=amount,
-                                currency=currency,
-                                day=last_paid,
-                                period=period,
-                                nft=deal["nft"],
-                            ),
-                        )
+                        await bot.send_message(deal["seller_id"], msg)
                     except Exception as e:
                         logging.error(f"Не смог уведомить о начислении: {e}")
 
@@ -1127,11 +1116,10 @@ async def daily_payout_loop(bot: Bot):
                     await inc_deals(deal["seller_id"])
                     seller = await get_user(deal["seller_id"])
                     seller_lang = get_lang(seller) if seller else "ru"
+
+                    msg = t(seller_lang, "rent_finished_seller").replace("{nft}", str(deal["nft"]))
                     try:
-                        await bot.send_message(
-                            deal["seller_id"],
-                            t(seller_lang, "rent_finished_seller").format(nft=deal["nft"]),
-                        )
+                        await bot.send_message(deal["seller_id"], msg)
                     except Exception as e:
                         logging.error(e)
 
@@ -1159,7 +1147,7 @@ async def main():
 
     asyncio.create_task(daily_payout_loop(bot))
 
-    print(f"🚀 {BRAND_NAME} bot started...")
+    print("🚀 " + BRAND_NAME + " bot started...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
