@@ -29,6 +29,7 @@ DB_PATH = "arrenda_rent.db"
 SUPPORT_PHOTO = "https://i.imgur.com/F6UddrX.jpeg"
 BALANCE_PHOTO = "https://i.imgur.com/kumwHxs.jpeg"
 REQUISITES_PHOTO = "https://i.imgur.com/TBrOAbO.jpeg"
+MAIN_PHOTO = "https://tetchange.com/wp-content/uploads/photo-2024-10-10-08-44-07.jpg"
 
 logging.basicConfig(level=logging.INFO)
 
@@ -641,7 +642,11 @@ async def set_lang(cb: CallbackQuery, state: FSMContext):
         await cb.message.delete()
     except Exception:
         pass
-    await cb.message.answer(t(lang, "welcome"), reply_markup=main_menu_kb(lang))
+    await cb.message.answer_photo(
+        photo=MAIN_PHOTO,
+        caption=t(lang, "welcome"),
+        reply_markup=main_menu_kb(lang),
+    )
     await cb.answer()
 
 # ---------- Главное меню ----------
@@ -654,7 +659,11 @@ async def back_to_menu(cb: CallbackQuery, state: FSMContext):
         await cb.message.delete()
     except Exception:
         pass
-    await cb.message.answer(t(lang, "welcome"), reply_markup=main_menu_kb(lang))
+    await cb.message.answer_photo(
+        photo=MAIN_PHOTO,
+        caption=t(lang, "welcome"),
+        reply_markup=main_menu_kb(lang),
+    )
     await cb.answer()
 
 # ---------- Как работает ----------
